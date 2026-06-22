@@ -13,3 +13,4 @@ scripts/merge-yml/*.yml
 .claude/
 .tarko
 .mcp*_token
+packages/ui-tars/utio/node-compile-cache
