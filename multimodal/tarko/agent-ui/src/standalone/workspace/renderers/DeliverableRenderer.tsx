@@ -107,7 +107,7 @@ export const DeliverableRenderer: React.FC<DeliverableRendererProps> = ({
             whileTap={{ scale: 0.95 }}
             onClick={handleCopy}
             className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-            title="Copy content"
+            title="复制内容"
           >
             {copied ? <FiCheck size={18} className="text-green-500" /> : <FiCopy size={18} />}
           </motion.button>
@@ -116,7 +116,7 @@ export const DeliverableRenderer: React.FC<DeliverableRendererProps> = ({
             whileTap={{ scale: 0.95 }}
             onClick={handleDownload}
             className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-            title="Download file"
+            title="下载文件"
           >
             <FiDownload size={18} />
           </motion.button>

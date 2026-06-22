@@ -252,10 +252,8 @@ const WelcomeCards: React.FC<WelcomeCardsProps> = ({
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-black/10 border border-gray-200 dark:border-white/5 flex items-center justify-center">
             <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-white/5" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            No cards found
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400">Try selecting a different category</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">暂无卡片</h3>
+          <p className="text-gray-600 dark:text-gray-400">试试选择其他分类</p>
         </motion.div>
       )}
     </motion.div>

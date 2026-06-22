@@ -33,7 +33,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({ imageData, onClose }) =>
               onClose();
             }}
             className="absolute -top-2 -right-2 p-2 rounded-full bg-gray-900/90 text-white hover:bg-gray-800 shadow-lg"
-            aria-label="Close"
+            aria-label="关闭"
           >
             <FiX size={24} />
           </button>

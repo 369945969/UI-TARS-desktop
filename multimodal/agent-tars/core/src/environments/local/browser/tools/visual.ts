@@ -53,10 +53,11 @@ export function createVisualTools(logger: ConsoleLogger, browserManager: Browser
         const filepath = path.join(imagesDir, filename);
 
         // Take screenshot
+        let screenshotBuffer: Buffer;
         if (area && area.length === 4) {
           // Take screenshot of specific area
           const [x1, y1, x2, y2] = area;
-          await page.screenshot({
+          screenshotBuffer = (await page.screenshot({
             path: filepath,
             clip: {
               x: x1,
@@ -64,20 +65,26 @@ export function createVisualTools(logger: ConsoleLogger, browserManager: Browser
               width: x2 - x1,
               height: y2 - y1,
             },
-          });
+          })) as Buffer;
           logger.info(
             `Took screenshot of area [${x1}, ${y1}, ${x2}, ${y2}] and saved to ${filepath}`,
           );
         } else {
           // Take full screenshot
-          await page.screenshot({ path: filepath });
+          screenshotBuffer = (await page.screenshot({ path: filepath })) as Buffer;
           logger.info(`Took full screenshot and saved to ${filepath}`);
         }
+
+        // Return base64 data so the frontend can display the image
+        const base64Data = (screenshotBuffer || fs.readFileSync(filepath)).toString('base64');
 
         return {
           status: 'success',
           filepath: filepath,
           slug: slug,
+          imageData: base64Data,
+          mimeType: 'image/png',
+          name: filename,
           message: `Screenshot saved to ${filepath}`,
         };
       } catch (error) {

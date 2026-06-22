@@ -127,7 +127,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, session
                     whileTap={{ scale: 0.9 }}
                     onClick={() => copyAgentName(sessionMetadata.agentInfo.name)}
                     className="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors flex-shrink-0"
-                    title="Copy agent name"
+                    title="复制智能体名称"
                   >
                     {copiedAgent ? (
                       <FiCheck size={14} className="text-green-500" />
@@ -165,7 +165,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose, session
                           copyModelId(getModelDisplayName(sessionMetadata.modelConfig))
                         }
                         className="text-gray-400 hover:text-purple-500 dark:hover:text-purple-400 transition-colors flex-shrink-0"
-                        title="Copy model ID"
+                        title="复制模型 ID"
                       >
                         {copiedModel ? (
                           <FiCheck size={14} className="text-green-500" />

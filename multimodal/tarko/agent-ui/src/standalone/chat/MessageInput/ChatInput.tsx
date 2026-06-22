@@ -495,7 +495,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                   onClick={handleFileUpload}
                   disabled={isDisabled || isProcessing}
                   className="p-2 rounded-full text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/30 dark:text-gray-400 transition-all duration-200 hover:scale-105 active:scale-90"
-                  title="Add Images"
+                  title="添加图片"
                 >
                   <FiImage size={18} />
                 </button>
@@ -542,7 +542,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                   type="button"
                   onClick={onReconnect}
                   className="absolute right-3 bottom-3 p-2 rounded-full text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/30 dark:text-gray-400 transition-all duration-200 hover:scale-105 active:scale-90"
-                  title="Try to reconnect"
+                  title="尝试重新连接"
                 >
                   <FiRefreshCw
                     size={20}
@@ -564,7 +564,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                       ? 'bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:from-indigo-800/30 dark:via-purple-800/30 dark:to-pink-800/30 text-indigo-400 dark:text-indigo-500 cursor-not-allowed border-2 border-indigo-200 dark:border-indigo-700/50'
                       : 'bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 hover:from-indigo-100 hover:via-purple-100 hover:to-pink-100 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 dark:hover:from-indigo-900/30 dark:hover:via-purple-900/30 dark:hover:to-pink-900/30 text-indigo-600 dark:text-indigo-400 border-2 border-indigo-200 dark:border-indigo-700/50'
                   } shadow-sm bg-[length:200%_200%] animate-border-flow`}
-                  title="Stop generation"
+                  title="停止生成"
                 >
                   {isAborting ? (
                     <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />

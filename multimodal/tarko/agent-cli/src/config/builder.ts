@@ -299,15 +299,19 @@ function applyWebUIDefaults(config: AgentAppConfig): void {
   }
 
   if (!config.webui.welcomTitle) {
-    config.webui.welcomTitle = 'Hello, Tarko!';
+    config.webui.welcomTitle = '你好，我是 Tarko 智能体';
   }
 
   if (!config.webui.subtitle) {
-    config.webui.subtitle = 'Build your own effective Agents and run anywhere!';
+    config.webui.subtitle = '构建你自己的高效智能体，随处运行';
   }
 
   if (!config.webui.welcomePrompts) {
-    config.webui.welcomePrompts = ['Introduce yourself'];
+    config.webui.welcomePrompts = [
+      '请介绍一下你自己',
+      '帮我搜索一下今天的热点新闻',
+      '帮我写一段 Python 代码',
+    ];
   }
 
   if (!config.webui.logo) {

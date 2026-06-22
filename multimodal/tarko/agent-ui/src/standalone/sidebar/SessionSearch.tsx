@@ -65,15 +65,15 @@ export const SessionSearch: React.FC<SessionSearchProps> = ({ onSearch }) => {
           onChange={handleChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          placeholder="Search tasks..."
+          placeholder="搜索任务..."
           className="bg-transparent text-sm w-full outline-none text-gray-700 dark:text-gray-300 placeholder:text-gray-400 dark:placeholder:text-gray-500"
-          aria-label="Search tasks"
+          aria-label="搜索任务"
         />
         {query && (
           <button
             onClick={clearSearch}
             className="p-1 rounded-full hover:bg-gray-100/80 dark:hover:bg-gray-700/80 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-all hover:scale-110 active:scale-90 animate-in zoom-in duration-200"
-            title="Clear search"
+            title="清除搜索"
           >
             <FiX size={14} />
           </button>

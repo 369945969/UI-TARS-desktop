@@ -356,7 +356,7 @@ export const Navbar: React.FC = () => {
               onClick={handleMobileMenuOpen}
               size="small"
               sx={{ color: 'text.secondary' }}
-              title="More options"
+              title="更多选项"
             >
               <FiMoreHorizontal size={16} />
             </IconButton>

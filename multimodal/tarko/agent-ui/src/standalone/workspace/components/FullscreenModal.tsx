@@ -55,7 +55,7 @@ export const FullscreenModal: React.FC<FullscreenModalProps> = ({ data, onClose 
             <button
               onClick={onClose}
               className="mr-3 p-1.5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-700/30 rounded-md transition-all duration-150 hover:scale-105 hover:-translate-x-0.5 active:scale-95"
-              title="Exit fullscreen (ESC)"
+              title="退出全屏 (ESC)"
             >
               <FiX size={16} />
             </button>
@@ -84,7 +84,7 @@ export const FullscreenModal: React.FC<FullscreenModalProps> = ({ data, onClose 
               <iframe
                 srcDoc={data.content}
                 className="w-full h-full border-0"
-                title="HTML Preview"
+                title="HTML 预览"
                 sandbox="allow-scripts allow-same-origin"
                 style={{ backgroundColor: 'white' }}
               />

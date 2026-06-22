@@ -49,7 +49,7 @@ export const MessageFooter: React.FC<MessageFooterProps> = ({ message, className
           {showTTFT && (
             <div className="flex items-center gap-2">
               {/* TTFT */}
-              <Tooltip title="Time to First Token (TTFT) - Time from request start to first token received">
+              <Tooltip title="首 Token 时间 (TTFT) - 从请求开始到收到第一个 Token 的时间">
                 <div className="flex items-center">
                   <FiZap size={10} className="mr-1 text-gray-500 dark:text-gray-400" />
                   <span className="text-gray-500 dark:text-gray-400">
@@ -60,7 +60,7 @@ export const MessageFooter: React.FC<MessageFooterProps> = ({ message, className
 
               {/* TTLT (if different from TTFT) */}
               {message.ttltMs && message.ttltMs !== message.ttftMs && (
-                <Tooltip title="Time to Last Token (TTLT) - Total time from request start to completion">
+                <Tooltip title="末 Token 时间 (TTLT) - 从请求开始到完成的总时间">
                   <div className="flex items-center">
                     <FiActivity size={10} className="mr-1 text-gray-500 dark:text-gray-400" />
                     <span className="text-gray-500 dark:text-gray-400">
@@ -77,7 +77,7 @@ export const MessageFooter: React.FC<MessageFooterProps> = ({ message, className
         <button
           onClick={handleCopy}
           className="flex items-center text-gray-400 hover:text-accent-500 dark:hover:text-accent-400 transition-colors"
-          title="Copy message"
+          title="复制消息"
         >
           {isCopied ? <FiCheck size={12} /> : <FiCopy size={12} />}
           <span className="ml-1">{isCopied ? 'Copied' : 'Copy'}</span>

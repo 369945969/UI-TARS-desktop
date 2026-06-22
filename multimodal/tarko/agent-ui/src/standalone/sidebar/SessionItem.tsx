@@ -148,14 +148,14 @@ const SessionItem: React.FC<SessionItemProps> = React.memo(
                 <button
                   onClick={handleEdit}
                   className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-full hover:bg-gray-100/50 dark:hover:bg-gray-700/50 transition-all border border-transparent hover:border-gray-100/40 dark:hover:border-gray-700/30 bg-white/80 dark:bg-gray-800/80 hover:scale-110 active:scale-90"
-                  title="Edit task name"
+                  title="编辑任务名称"
                 >
                   <FiEdit2 size={12} />
                 </button>
                 <button
                   onClick={handleDelete}
                   className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-full hover:bg-gray-100/50 dark:hover:bg-gray-700/50 transition-all border border-transparent hover:border-gray-100/40 dark:hover:border-gray-700/30 bg-white/80 dark:bg-gray-800/80 hover:scale-110 active:scale-90"
-                  title="Delete task"
+                  title="删除任务"
                 >
                   <FiTrash2 size={12} />
                 </button>

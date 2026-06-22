@@ -87,7 +87,7 @@ export const LinkReaderRenderer: React.FC<LinkReaderRendererProps> = ({ panelCon
                   ? 'bg-green-900/40 text-green-400 border border-green-700/50'
                   : 'bg-gray-800/80 text-gray-400 border border-gray-600/50 hover:bg-gray-700 hover:text-gray-300'
               }`}
-              title="Copy content"
+              title="复制内容"
             >
               {isCopied ? (
                 <FiCheck size={14} className="transition-transform scale-110" />

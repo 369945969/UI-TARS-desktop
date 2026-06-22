@@ -12,7 +12,7 @@ export const mode = process.env.NODE_ENV;
 export const isProd = mode === 'production';
 export const isDev = mode === 'development';
 export const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-export const port = process.env.PORT || 1212;
+export const port = process.env.PORT || 31212;
 export const startMinimized = process.env.START_MINIMIZED;
 export const rendererUrl = process.env.ELECTRON_RENDERER_URL;
 export const isE2eTest = process.env.CI === 'e2e';

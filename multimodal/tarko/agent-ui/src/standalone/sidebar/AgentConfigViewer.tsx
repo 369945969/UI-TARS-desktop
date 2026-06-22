@@ -92,7 +92,7 @@ export const AgentConfigViewer: React.FC<AgentConfigViewerProps> = ({ isOpen, on
               </div>
             </div>
           ) : config && Object.keys(config).length > 0 ? (
-            <JSONViewer data={config} emptyMessage="No configuration available" />
+            <JSONViewer data={config} emptyMessage="暂无配置信息" />
           ) : (
             <div className="flex items-center justify-center py-12">
               <div className="text-center">

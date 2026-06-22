@@ -49,7 +49,7 @@ export const ImageRenderer: React.FC<ImageRendererProps> = ({ panelContent, onAc
         whileTap={{ scale: 0.95 }}
         onClick={handleZoom}
         className="p-2 bg-gray-800/70 hover:bg-gray-800/90 rounded-full text-white"
-        title="Zoom"
+        title="缩放"
       >
         <FiZoomIn size={16} />
       </motion.button>
@@ -59,7 +59,7 @@ export const ImageRenderer: React.FC<ImageRendererProps> = ({ panelContent, onAc
         whileTap={{ scale: 0.95 }}
         onClick={handleDownload}
         className="p-2 bg-gray-800/70 hover:bg-gray-800/90 rounded-full text-white"
-        title="Download"
+        title="下载"
       >
         <FiDownload size={16} />
       </motion.button>

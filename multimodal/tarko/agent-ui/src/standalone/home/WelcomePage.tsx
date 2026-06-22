@@ -88,16 +88,14 @@ const WelcomePage: React.FC = () => {
 
     try {
       // Get user selected RuntimeSettings
-      const selectedRuntimeSettings = globalSettings.isActive 
-        ? globalSettings.selectedValues 
-        : {};
-      
+      const selectedRuntimeSettings = globalSettings.isActive ? globalSettings.selectedValues : {};
+
       // Navigate to creating page with runtime settings
       navigate('/creating', {
         state: {
           query: content, // Keep original format for multimodal content
-          runtimeSettings: selectedRuntimeSettings
-        }
+          runtimeSettings: selectedRuntimeSettings,
+        },
       });
     } catch (error) {
       console.error('Failed to navigate to creating:', error);
@@ -167,7 +165,7 @@ const WelcomePage: React.FC = () => {
               onSubmit={handleChatSubmit}
               isDisabled={isLoading || isDirectChatLoading}
               isProcessing={false}
-              placeholder={`Ask ${getAgentTitle()} anything...`}
+              placeholder={`向 ${getAgentTitle()} 提问...`}
               showAttachments={true}
               showContextualSelector={true}
               autoFocus={true}
@@ -194,7 +192,7 @@ const WelcomePage: React.FC = () => {
                 type="button"
               >
                 <span className="group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors duration-300">
-                  Go to task history
+                  前往任务历史
                 </span>
                 {isDirectChatLoading ? (
                   <motion.div
@@ -281,7 +279,7 @@ const WelcomePage: React.FC = () => {
                     onClick={handleShuffle}
                     className="text-sm px-4 py-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200/50 dark:border-gray-700/30 hover:bg-gray-50 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 transition-colors flex items-center gap-1.5"
                     disabled={isLoading || isDirectChatLoading || isShuffling}
-                    title="Shuffle"
+                    title="换一批"
                   >
                     <motion.div
                       animate={{ rotate: isShuffling ? 360 : 0 }}
@@ -289,7 +287,7 @@ const WelcomePage: React.FC = () => {
                     >
                       <FiRefreshCw size={14} />
                     </motion.div>
-                    <span>Shuffle</span>
+                    <span>换一批</span>
                   </motion.button>
                 )}
               </div>

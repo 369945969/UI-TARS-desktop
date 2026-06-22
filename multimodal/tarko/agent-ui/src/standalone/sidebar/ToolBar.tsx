@@ -59,7 +59,7 @@ export const ToolBar: React.FC = () => {
     <>
       <div className="w-12 h-full flex flex-col backdrop-blur-sm">
         <div className="flex flex-col items-center gap-4 pt-3">
-          <button onClick={handleNavigateHome} title="Back to Home">
+          <button onClick={handleNavigateHome} title="返回首页">
             <img
               src={getLogoUrl()}
               alt={getAgentTitle()}
@@ -138,7 +138,7 @@ export const ToolBar: React.FC = () => {
                   ? 'bg-blue-500 text-white shadow-md'
                   : 'bg-white dark:bg-gray-800 text-black dark:text-white hover:shadow-md'
               }`}
-              title="Event Stream Viewer"
+              title="事件流查看器"
             >
               <FiActivity size={12} />
             </motion.button>
@@ -152,7 +152,7 @@ export const ToolBar: React.FC = () => {
             <button
               onClick={() => setIsConfigViewerOpen(true)}
               className="w-6 h-6 rounded-lg flex items-center justify-center bg-white dark:bg-gray-800 text-black dark:text-white hover:shadow-md transition-all hover:scale-105 active:scale-95"
-              title="Agent Configuration"
+              title="智能体配置"
             >
               <FiSettings size={12} />
             </button>

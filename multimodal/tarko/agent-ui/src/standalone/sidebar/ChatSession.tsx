@@ -378,10 +378,10 @@ export const ChatSession: React.FC<ChatSessionProps> = ({ isCollapsed }) => {
         isOpen={deleteConfirmOpen}
         onClose={() => setDeleteConfirmOpen(false)}
         onConfirm={confirmDeleteSession}
-        title="Delete Task"
+        title="删除任务"
         message="Are you sure you want to delete this task? This action cannot be undone."
-        confirmText="Delete"
-        cancelText="Cancel"
+        confirmText="删除"
+        cancelText="取消"
         type="danger"
       />
     </div>

@@ -131,7 +131,7 @@ export const ThrottledHtmlRenderer: React.FC<ThrottledHtmlRendererProps> = ({
       <iframe
         ref={iframeRef}
         className="w-full border-0 min-h-[100vh]"
-        title="HTML Preview"
+        title="HTML 预览"
         sandbox="allow-scripts allow-same-origin"
         // Don't use srcDoc for streaming content to allow manual DOM updates
         srcDoc={!isStreaming ? stableContent : undefined}

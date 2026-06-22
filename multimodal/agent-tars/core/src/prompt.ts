@@ -124,6 +124,11 @@ export function generateBrowserRulesPrompt(control: BrowserControlMode = 'hybrid
   // Base browser rules that apply to all modes
   let browserRules = `<browser_rules>
 You have access to various browser tools to interact with web pages and extract information.
+
+<blocked_sites>
+The following websites block automated access and MUST NOT be used. If a task requires booking flights or similar services, use alternative sites instead:
+- ctrip.com / 携程 (use 去哪儿 qunar.com or 飞猪 fliggy.com instead)
+</blocked_sites>
 `;
 
   // Add strategy-specific guidance

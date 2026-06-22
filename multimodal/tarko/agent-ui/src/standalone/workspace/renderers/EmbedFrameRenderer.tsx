@@ -94,7 +94,7 @@ export const EmbedFrameRenderer: React.FC<EmbedFrameRendererProps> = ({
           <button
             onClick={handleOpenInNewTab}
             className="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors flex items-center gap-2"
-            title="Open in new tab"
+            title="在新标签页打开"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -109,7 +109,7 @@ export const EmbedFrameRenderer: React.FC<EmbedFrameRendererProps> = ({
           <button
             onClick={() => setIsFullscreen(false)}
             className="px-3 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors flex items-center gap-2"
-            title="Close fullscreen"
+            title="关闭全屏"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path

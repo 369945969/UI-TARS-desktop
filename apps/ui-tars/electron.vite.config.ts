@@ -91,6 +91,10 @@ export default defineConfig({
       },
     },
     plugins: [react(), tsconfigPaths(), tailwindcss()],
+    server: {
+      port: Number(process.env.PORT) || 31212,
+      host: process.env.HOST || '0.0.0.0',
+    },
     define: {
       APP_VERSION: JSON.stringify(pkg.version),
     },

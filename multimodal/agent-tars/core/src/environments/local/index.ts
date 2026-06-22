@@ -126,6 +126,7 @@ export class AgentTARSLocalEnvironment extends AgentTARSBaseEnvironment {
       provider: this.options.search!.provider,
       count: this.options.search!.count,
       cdpEndpoint: this.options.browser?.cdpEndpoint,
+      headless: this.options.browser?.headless,
       browserSearch: this.options.search!.browserSearch,
       apiKey: this.options.search!.apiKey,
       baseUrl: this.options.search!.baseUrl,

@@ -120,7 +120,7 @@ export const ResearchReportRenderer: React.FC<ResearchReportRendererProps> = ({
             whileTap={{ scale: 0.95 }}
             onClick={handleCopy}
             className="p-2 rounded-lg bg-gray-50/80 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 hover:bg-gray-100/80 dark:hover:bg-gray-700/50 transition-colors border border-gray-200/50 dark:border-gray-700/30"
-            title="Copy content"
+            title="复制内容"
           >
             {copied ? <FiCheck size={20} className="text-green-500" /> : <FiCopy size={20} />}
           </motion.button>
@@ -130,7 +130,7 @@ export const ResearchReportRenderer: React.FC<ResearchReportRendererProps> = ({
             whileTap={{ scale: 0.95 }}
             onClick={handleDownload}
             className="p-2 rounded-lg bg-gray-50/80 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 hover:bg-gray-100/80 dark:hover:bg-gray-700/50 transition-colors border border-gray-200/50 dark:border-gray-700/30"
-            title="Download Report"
+            title="下载报告"
           >
             <FiDownload size={20} />
           </motion.button>

@@ -60,7 +60,7 @@ const EmbedFrameView: React.FC<EmbedFrameViewProps> = ({ navItem }) => {
           <button
             onClick={handleOpenInNewTab}
             className="group flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100/60 dark:hover:bg-gray-700/60 rounded-lg transition-all duration-200 hover:shadow-sm active:scale-95"
-            title="Open in new tab"
+            title="在新标签页打开"
           >
             <FiExternalLink className="w-3.5 h-3.5 transition-transform group-hover:rotate-12" />
             <span className="hidden sm:inline">Open</span>

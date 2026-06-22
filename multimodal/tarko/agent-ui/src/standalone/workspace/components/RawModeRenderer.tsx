@@ -153,7 +153,7 @@ export const RawModeRenderer: React.FC<RawModeRendererProps> = ({ toolMapping })
     <div className="space-y-3 mt-4">
       {/* Input Section */}
       <CollapsibleSection
-        title="Input"
+        title="输入"
         icon={<FiPlay size={16} className="text-blue-500" />}
         timestamp={toolCall.timestamp ? formatTimestamp(toolCall.timestamp, true) : undefined}
         defaultOpen={true}
@@ -175,14 +175,10 @@ export const RawModeRenderer: React.FC<RawModeRendererProps> = ({ toolMapping })
             <div className="group">
               <div className="text-sm font-medium text-slate-800 dark:text-slate-200 mb-2 flex items-center justify-between">
                 <span>Parameters</span>
-                <CopyButton jsonRef={parametersRef} title="Copy parameters" />
+                <CopyButton jsonRef={parametersRef} title="复制参数" />
               </div>
               <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-3">
-                <JSONViewer
-                  ref={parametersRef}
-                  data={toolCall.arguments}
-                  emptyMessage="No parameters"
-                />
+                <JSONViewer ref={parametersRef} data={toolCall.arguments} emptyMessage="暂无参数" />
               </div>
             </div>
           )}
@@ -191,7 +187,7 @@ export const RawModeRenderer: React.FC<RawModeRendererProps> = ({ toolMapping })
 
       {/* Output Section */}
       <CollapsibleSection
-        title="Output"
+        title="输出"
         icon={
           <StatusIndicator
             status={toolResult ? (toolResult.error ? 'error' : 'success') : 'pending'}
@@ -223,13 +219,13 @@ export const RawModeRenderer: React.FC<RawModeRendererProps> = ({ toolMapping })
             <div className="group">
               <div className="text-sm font-medium text-slate-800 dark:text-slate-200 mb-2 flex items-center justify-between">
                 <span>Response</span>
-                <CopyButton jsonRef={responseRef} title="Copy response" />
+                <CopyButton jsonRef={responseRef} title="复制回复" />
               </div>
               <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-3">
                 <JSONViewer
                   ref={responseRef}
                   data={toolResult.content}
-                  emptyMessage="No response data"
+                  emptyMessage="暂无响应数据"
                 />
               </div>
             </div>
@@ -239,13 +235,13 @@ export const RawModeRenderer: React.FC<RawModeRendererProps> = ({ toolMapping })
               <div className="group">
                 <div className="text-sm font-medium text-slate-800 dark:text-slate-200 mb-2 flex items-center justify-between">
                   <span>Metadata</span>
-                  <CopyButton jsonRef={metadataRef} title="Copy metadata" />
+                  <CopyButton jsonRef={metadataRef} title="复制元数据" />
                 </div>
                 <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700 p-3">
                   <JSONViewer
                     ref={metadataRef}
                     data={toolResult._extra}
-                    emptyMessage="No metadata"
+                    emptyMessage="暂无元数据"
                   />
                 </div>
               </div>

@@ -81,7 +81,7 @@ export const ReplayControlPanel: React.FC = () => {
               onClick={resetAndPlay}
               disabled={!hasEvents}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95"
-              title="Reset and play from start"
+              title="重置并从头播放"
             >
               <FiRotateCcw size={16} />
             </button>
@@ -91,7 +91,7 @@ export const ReplayControlPanel: React.FC = () => {
               onClick={jumpToFinalState}
               disabled={!hasEvents}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105 active:scale-95"
-              title="Jump to final state"
+              title="跳转到最终状态"
             >
               <FiSkipForward size={16} />
             </button>

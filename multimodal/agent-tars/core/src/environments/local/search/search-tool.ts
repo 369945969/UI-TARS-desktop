@@ -5,6 +5,7 @@
 
 import { ConsoleLogger, Tool, z } from '@tarko/mcp-agent';
 import { SearchClient, SearchConfig, SearchProvider } from '@agent-infra/search';
+import { tavily } from '@agent-infra/search';
 import { AgentTARSSearchOptions } from '@agent-tars/interface';
 import { LocalBrowser, RemoteBrowser } from '@agent-infra/browser';
 
@@ -15,6 +16,8 @@ export interface SearchToolConfig extends AgentTARSSearchOptions {
   /** External browser instance for browser_search provider */
   externalBrowser?: LocalBrowser | RemoteBrowser;
   cdpEndpoint?: string;
+  /** Launch browser in headless mode (for browser_search provider) */
+  headless?: boolean;
 }
 
 /**
@@ -52,6 +55,7 @@ export class SearchToolProvider {
         cdpEndpoint: config.cdpEndpoint,
         apiKey: config.apiKey,
         baseUrl: config.baseUrl,
+        browserOptions: config.headless ? { headless: true } : undefined,
       },
       logger: this.logger,
     };
@@ -122,9 +126,21 @@ export class SearchToolProvider {
         try {
           this.logger.info(`Performing search: "${query}" (count: ${count || this.config.count})`);
 
+          const searchCount = count || this.config.count;
+
+          if (this.config.provider === 'tavily') {
+            const client = tavily({ apiKey: this.config.apiKey });
+            const result = await client.search(query, { maxResults: searchCount });
+            return (result.results || []).map((item: any) => ({
+              title: item.title || '',
+              url: item.url || '',
+              content: item.content || '',
+            }));
+          }
+
           const results = await this.searchClient.search({
             query,
-            count: count || this.config.count,
+            count: searchCount,
           });
 
           return results.pages;

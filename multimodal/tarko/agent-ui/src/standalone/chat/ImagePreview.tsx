@@ -81,7 +81,7 @@ export const ImagePreview: React.FC<ImagePreviewProps> = ({ image, onRemove }) =
             onRemove();
           }}
           className="absolute top-0 right-0 bg-red-500 hover:bg-red-600 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg border-2 border-white dark:border-gray-900 z-20"
-          title="Remove image"
+          title="移除图片"
         >
           <FiX size={14} />
         </motion.button>

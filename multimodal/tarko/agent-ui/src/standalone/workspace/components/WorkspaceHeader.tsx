@@ -56,7 +56,7 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
         <button
           onClick={onBack}
           className="mr-3 p-1.5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-700/30 rounded-md transition-all duration-150 hover:scale-105 hover:-translate-x-0.5 active:scale-95"
-          title="Back to workspace"
+          title="返回工作区"
         >
           <FiArrowLeft size={16} />
         </button>
@@ -102,14 +102,14 @@ export const WorkspaceHeader: React.FC<WorkspaceHeaderProps> = ({
         {showToggle && toggleConfig && <ToggleSwitch<FileDisplayMode> {...toggleConfig} />}
 
         {/* Share button */}
-        <ShareButton fileName={getFileName()} title="Share this file" />
+        <ShareButton fileName={getFileName()} title="分享此文件" />
 
         {/* Fullscreen button */}
         {showFullscreen && onFullscreen && (
           <button
             onClick={onFullscreen}
             className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all hover:scale-105 active:scale-95"
-            title="Fullscreen preview"
+            title="全屏预览"
           >
             <FiMaximize size={16} />
           </button>
