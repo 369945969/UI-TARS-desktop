@@ -96,7 +96,23 @@ if [ -z "$BROWSER_CFG" ] && [ -z "$CDP_URL" ]; then
 fi
 
 # ---- 清理旧进程 (tars + chrome) ----
-# 杀掉旧的 agent-tars CLI 进程, 避免端口冲突
+# 杀掉占用 3000 端口的进程
+PORT_PIDS=$(ss -tlnp 2>/dev/null | grep -E ":$PORT\b" | grep -oP 'pid=\K[0-9]+' || true)
+if [ -n "$PORT_PIDS" ]; then
+  echo "==> Killing processes on port $PORT: $PORT_PIDS"
+  echo "$PORT_PIDS" | xargs kill -9 2>/dev/null || true
+  sleep 1
+fi
+
+# 杀掉占用 9222 端口的进程 (CDP)
+CDP_PIDS=$(ss -tlnp 2>/dev/null | grep ':9222' | grep -oP 'pid=\K[0-9]+' || true)
+if [ -n "$CDP_PIDS" ]; then
+  echo "==> Killing processes on port 9222: $CDP_PIDS"
+  echo "$CDP_PIDS" | xargs kill -9 2>/dev/null || true
+  sleep 1
+fi
+
+# 杀掉旧的 agent-tars CLI 进程
 # 注意: grep 无匹配返回 1, 配合 set -o pipefail 需加 || true
 OLD_TARS_PIDS=$(ps -eo pid,cmd | grep -E 'cli/bin/cli\.js run|node bin/cli\.js run' | grep -v grep | awk '{print $1}' || true)
 if [ -n "$OLD_TARS_PIDS" ]; then
@@ -122,7 +138,7 @@ export TARKO_ALLOWED_ORIGINS="${TARKO_ALLOWED_ORIGINS:-*}"
 export AGENT_BASE_URL=""
 
 cd "$MULTIMODAL_DIR/agent-tars/cli"
-exec node bin/cli.js run \
+nohup node bin/cli.js run \
   --port "$PORT" \
   --model.provider "$MODEL_PROVIDER" \
   --model.baseURL "$MODEL_BASE_URL" \
@@ -133,4 +149,22 @@ exec node bin/cli.js run \
   ${BROWSER_CFG:+--browser "$BROWSER_CFG"} \
   ${CDP_URL:+--browser.cdpEndpoint "$CDP_URL"} \
   $BROWSER_HEADLESS \
-  "$@"
+  "$@" \
+  > /tmp/tars-web.log 2>&1 &
+
+TARS_PID=$!
+echo "==> Agent TARS started in background (PID: $TARS_PID)"
+echo "==> Log: /tmp/tars-web.log"
+echo "==> Waiting for service to be ready..."
+
+# 等待服务就绪 (最多 30 秒)
+for i in $(seq 1 30); do
+  if curl -sf "http://localhost:$PORT" &>/dev/null; then
+    echo "==> Service is ready at http://localhost:$PORT"
+    exit 0
+  fi
+  sleep 1
+done
+
+echo "==> WARNING: Service did not become ready within 30s, check /tmp/tars-web.log"
+exit 1
