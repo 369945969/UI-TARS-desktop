@@ -13,51 +13,65 @@ const navigateTool = defineTool({
   },
   handle: async (ctx, args) => {
     const { page, logger, buildDomTree } = ctx;
+    const MAX_RETRIES = 2;
+    const NAV_TIMEOUT = 60000; // 60 seconds
 
-    try {
-      await page.goto(args.url);
+    let lastError: unknown = null;
 
-      logger.info('navigateTo complete');
-      const { clickableElements } = (await buildDomTree(page)) || {};
-      logger.info('clickableElements', clickableElements);
-      await removeHighlights(page);
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        await page.goto(args.url, { timeout: NAV_TIMEOUT, waitUntil: ['domcontentloaded'] });
 
-      return {
-        content: [
-          {
-            type: 'text',
-            text:
-              `Navigated to ${args.url}` +
-              (clickableElements
-                ? `\nclickable elements(Might be outdated, if an error occurs with the index element, use \`browser_get_clickable_elements\` to refresh it): \n${clickableElements}`
-                : 'No clickable elements found'),
-          },
-        ],
-        isError: false,
-      };
-    } catch (error: unknown) {
-      // Check if it's a timeout error
-      if (
-        error instanceof TimeoutError ||
-        (error as Error)?.message?.includes('timeout')
-      ) {
-        logger.warn(
-          'Navigation timeout, but page might still be usable:',
-          error,
-        );
-        // You might want to check if the page is actually loaded despite the timeout
+        logger.info(`navigateTo complete (attempt ${attempt})`);
+        const { clickableElements } = (await buildDomTree(page)) || {};
+        logger.info('clickableElements', clickableElements);
+        await removeHighlights(page);
+
         return {
           content: [
             {
               type: 'text',
-              text: 'Navigation timeout, but page might still be usable:',
+              text:
+                `Navigated to ${args.url}` +
+                (clickableElements
+                  ? `\nclickable elements(Might be outdated, if an error occurs with the index element, use \`browser_get_clickable_elements\` to refresh it): \n${clickableElements}`
+                  : 'No clickable elements found'),
             },
           ],
           isError: false,
         };
-      } else {
-        logger.error('NavigationTo failed:', error);
-        return {
+      } catch (error: unknown) {
+        lastError = error;
+        logger.warn(`Navigation attempt ${attempt} failed:`, error);
+
+        if (attempt < MAX_RETRIES) {
+          logger.info(`Retrying navigation (attempt ${attempt + 1})...`);
+          await new Promise((r) => setTimeout(r, 2000));
+        }
+      }
+    }
+
+    // All retries failed - check if it's a timeout (page might still be usable)
+    if (
+      lastError instanceof TimeoutError ||
+      (lastError as Error)?.message?.includes('timeout')
+    ) {
+      logger.warn(
+        'Navigation timeout after retries, but page might still be usable:',
+        lastError,
+      );
+      return {
+        content: [
+          {
+            type: 'text',
+            text: 'Navigation timeout after retries, but page might still be usable:',
+          },
+        ],
+        isError: false,
+      };
+    } else {
+      logger.error('NavigationTo failed after retries:', lastError);
+      return {
           content: [
             {
               type: 'text',

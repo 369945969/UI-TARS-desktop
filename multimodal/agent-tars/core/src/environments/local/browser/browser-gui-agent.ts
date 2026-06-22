@@ -316,9 +316,48 @@ wait()                                         - Wait 5 seconds and take a scree
         } → ${formatBytes(compressedSize)} (${compressionPercentage}% reduction)`,
       });
 
-      // Screenshot taken but NOT sent to main model to avoid token overflow
-      // Main model uses DOM tools (browser_get_markdown etc.) to understand page content
-      this.logger.info('Screenshot taken but skipped sending to model (token optimization)');
+      // 1. Send screenshot image to frontend for display (not sent to main model LLM)
+      const imageEvent = eventStream.createEvent('environment_input', {
+        content: [
+          {
+            type: 'image_url',
+            image_url: {
+              url: compressedBase64,
+            },
+          },
+        ],
+        description: 'Browser Screenshot',
+        metadata: {
+          type: 'screenshot',
+        },
+      });
+      (imageEvent as any)._skipLLM = true;
+      eventStream.sendEvent(imageEvent);
+
+      // 2. Send text description to main model (avoids token overflow from images)
+      this.logger.info('Screenshot taken, sending to vision model for text description...');
+
+      let visionDescription = '';
+      try {
+        visionDescription = await this.describeScreenshotWithVisionModel(
+          compressedBase64,
+          currentUrl,
+        );
+        this.logger.info('Vision model description:', visionDescription.slice(0, 200));
+      } catch (err) {
+        this.logger.warn('Vision model failed, skipping description:', err);
+      }
+
+      if (visionDescription) {
+        const descEvent = eventStream.createEvent('environment_input', {
+          content: visionDescription,
+          description: 'Browser Screenshot Analysis',
+          metadata: {
+            type: 'screenshot_description',
+          },
+        });
+        eventStream.sendEvent(descEvent);
+      }
 
       // Also capture page content on loop start
       // await this.capturePageContentAsEnvironmentInfo();
@@ -528,6 +567,71 @@ wait()                                         - Wait 5 seconds and take a scree
     } catch (error) {
       this.logger.warn('Failed to get active page, creating new page:', error);
       return await this.browser.createPage();
+    }
+  }
+
+  /**
+   * Send screenshot to a separate vision model and get text description.
+   * Uses a fresh session each time to avoid context accumulation.
+   */
+  private async describeScreenshotWithVisionModel(
+    imageBase64: string,
+    currentUrl?: string,
+  ): Promise<string> {
+    const baseURL = process.env.VISION_MODEL_BASE_URL;
+    const apiKey = process.env.VISION_MODEL_API_KEY;
+    const modelId = process.env.VISION_MODEL_ID;
+
+    if (!baseURL || !apiKey || !modelId) {
+      this.logger.info('Vision model not configured, skipping description');
+      return '';
+    }
+
+    const prompt = `你是一个浏览器截图分析助手。请分析这张浏览器截图，用简洁的中文描述：
+1. 页面标题和主要内容
+2. 页面上有哪些可交互元素（按钮、输入框、链接等）
+3. 页面当前的布局结构
+
+${currentUrl ? `当前页面URL: ${currentUrl}` : ''}
+
+请用简洁的文本描述，不要使用 markdown 格式。控制在 500 字以内。`;
+
+    try {
+      const response = await fetch(`${baseURL}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: modelId,
+          messages: [
+            {
+              role: 'user',
+              content: [
+                { type: 'text', text: prompt },
+                {
+                  type: 'image_url',
+                  image_url: { url: imageBase64 },
+                },
+              ],
+            },
+          ],
+          max_tokens: 800,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Vision model API error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const description = data?.choices?.[0]?.message?.content || '';
+
+      return description;
+    } catch (error) {
+      this.logger.error('Failed to call vision model:', error);
+      return '';
     }
   }
 }

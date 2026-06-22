@@ -114,7 +114,10 @@ export class MessageHistory {
           toolCallEngine,
         );
       } else if (event.type === 'environment_input') {
-        this.processEnvironmentInput(event, eventIndex, imagesToOmit, messages);
+        // Skip events marked with _skipLLM (e.g. screenshot images sent only for frontend display)
+        if (!(event as any)._skipLLM) {
+          this.processEnvironmentInput(event, eventIndex, imagesToOmit, messages);
+        }
       } else if (event.type === 'plan_update') {
         this.processPlanUpdate(event, messages);
       }

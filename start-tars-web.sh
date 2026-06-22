@@ -24,7 +24,13 @@ fi
 : "${MODEL_PROVIDER:=openai}"
 : "${MODEL_BASE_URL:=${VLM_BASE_URL:-}}"
 : "${MODEL_API_KEY:=${VLM_API_KEY:-}}"
-: "${MODEL_ID:=${VLM_MODEL_NAME:-gpt-4o}}"
+: "${MODEL_ID:=glm-5.2}"
+
+# 图片解析模型 (每次新会话)
+VISION_MODEL_BASE_URL="${VISION_MODEL_BASE_URL:-${VLM_BASE_URL:-}}"
+VISION_MODEL_API_KEY="${VISION_MODEL_API_KEY:-${VLM_API_KEY:-}}"
+VISION_MODEL_ID="${VISION_MODEL_ID:-glm-5}"
+export VISION_MODEL_BASE_URL VISION_MODEL_API_KEY VISION_MODEL_ID
 
 PORT="${PORT:-3000}"
 
@@ -108,13 +114,8 @@ sleep 2
 echo "=============================================="
 echo "  Agent TARS Web UI — http://localhost:$PORT"
 echo "  Model: $MODEL_PROVIDER / $MODEL_ID"
-if [ -n "$BROWSER_CFG" ]; then
-  echo "  Browser: managed by agent ($BROWSER_CFG)"
-elif [ -n "$BROWSER_HEADLESS" ]; then
-  echo "  Browser: headless (managed by agent)"
-elif [ -n "$CDP_URL" ]; then
-  echo "  Browser: $CDP_URL"
-fi
+echo "  Vision: $VISION_MODEL_ID (独立会话)"
+[ -n "$CDP_URL" ] && echo "  Browser: $CDP_URL"
 echo "=============================================="
 
 export TARKO_ALLOWED_ORIGINS="${TARKO_ALLOWED_ORIGINS:-*}"
@@ -123,7 +124,6 @@ export AGENT_BASE_URL=""
 cd "$MULTIMODAL_DIR/agent-tars/cli"
 exec node bin/cli.js run \
   --port "$PORT" \
-  --server.exclusive \
   --model.provider "$MODEL_PROVIDER" \
   --model.baseURL "$MODEL_BASE_URL" \
   --model.apiKey "$MODEL_API_KEY" \

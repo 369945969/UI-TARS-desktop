@@ -37,10 +37,10 @@ export const AGENT_TARS_WEBUI_CONFIG: AgentWebUIImplementation = {
         'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop&crop=center',
     },
     {
-      title: '请帮我预订 10 月 1 日杭州到深圳最早的航班',
+      title: '预订下个月 1-5 号杭州到深圳的航班',
       category: 'AI 浏览器',
       prompt:
-        '请帮我预订 10 月 1 日杭州到深圳最早的航班。注意：不要使用携程(ctrip)，改用其他订票网站如去哪儿、飞猪或同程',
+        '请帮我预订下个月 1 号到 5 号之间杭州到深圳的航班，选最早的。注意：不要使用携程(ctrip)，改用其他订票网站如去哪儿、飞猪或同程',
       image:
         'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop&crop=center',
     },
@@ -120,12 +120,12 @@ export const AGENT_TARS_WEBUI_CONFIG: AgentWebUIImplementation = {
         'https://lf3-static.bytednsdoc.com/obj/eden-cn/zyha-aulnh/ljhwZthlaukjlkulzlp/storage/general/solve-problem-theory-python-020cc2.jpg',
     },
     {
-      title: '在 Priceline 预订机票',
+      title: '和 AI 下五子棋并完成一局',
       category: 'AI 浏览器',
       prompt:
-        '请帮我在 Priceline 上预订 9 月 1 日从圣何塞到纽约的最早航班，以及 9 月 6 日的最晚返程航班\r\n\r\n提示：切换到排序后，不需要再点击搜索。请用中文回复我',
+        '1. 打开五子棋网站：https://wuziqi.xunzhiyi.com/\r\n2. 开始一局五子棋对局，与机器人下棋\r\n3. 认真思考每一步，争取获胜，直到这局棋下完',
       image:
-        'https://lf3-static.bytednsdoc.com/obj/eden-cn/zyha-aulnh/ljhwZthlaukjlkulzlp/storage/general/book-flights-san-jose-3c5d03.jpg',
+        'https://images.unsplash.com/photo-1529696142475-08ad0df32783?w=400&h=300&fit=crop&crop=center',
     },
     {
       title: '打开、游玩并通关游戏',
