@@ -14,3 +14,4 @@ scripts/merge-yml/*.yml
 .tarko
 .mcp*_token
 packages/ui-tars/utio/node-compile-cache
+multimodal/agent-tars/cli/images
