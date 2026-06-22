@@ -316,24 +316,9 @@ wait()                                         - Wait 5 seconds and take a scree
         } → ${formatBytes(compressedSize)} (${compressionPercentage}% reduction)`,
       });
 
-      // Send screenshot to event stream as environment input
-      const event = eventStream.createEvent('environment_input', {
-        content: [
-          {
-            type: 'image_url',
-            image_url: {
-              url: compressedBase64,
-            },
-          },
-        ],
-        description: 'Browser Screenshot',
-        metadata: {
-          type: 'screenshot',
-          url: currentUrl,
-        },
-      });
-
-      eventStream.sendEvent(event);
+      // Screenshot taken but NOT sent to main model to avoid token overflow
+      // Main model uses DOM tools (browser_get_markdown etc.) to understand page content
+      this.logger.info('Screenshot taken but skipped sending to model (token optimization)');
 
       // Also capture page content on loop start
       // await this.capturePageContentAsEnvironmentInfo();

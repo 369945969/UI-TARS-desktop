@@ -434,26 +434,9 @@ export class AgentTARSLocalEnvironment extends AgentTARSBaseEnvironment {
    * Update browser state after navigation
    */
   private async updateBrowserState(browserState: any): Promise<void> {
-    try {
-      if (this.options.browser?.control === 'dom') {
-        const response = await this.mcpClients.browser?.callTool({
-          name: 'browser_screenshot',
-          arguments: { highlight: true },
-        });
-
-        if (Array.isArray(response?.content)) {
-          const { data, type, mimeType } = response.content[1];
-          if (type === 'image') {
-            browserState.currentScreenshot = `data:${mimeType};base64,${data}`;
-          }
-        }
-      } else if (this.browserGUIAgent) {
-        const { compressedBase64 } = await this.browserGUIAgent.screenshot();
-        browserState.currentScreenshot = compressedBase64;
-      }
-    } catch (error) {
-      this.logger.warn('⚠️ Failed to update browser state:', error);
-    }
+    // Skip screenshot to avoid token overflow with main model
+    // Main model uses DOM tools to understand page content instead
+    return;
   }
 
   /**
